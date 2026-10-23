@@ -22,12 +22,3 @@
   window.addEventListener('appinstalled', () => { promptEvent = null; button.hidden = true; });
   window.matchMedia('(display-mode: standalone)').addEventListener?.('change', update);
 })();
-
-// Register offline caching before licence activation (app.js loads only after activation).
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js', {scope:'./'})
-      .then(reg => reg.update().catch(() => {}))
-      .catch(err => console.warn('Offline cache registration failed:', err));
-  });
-}
